@@ -1,0 +1,44 @@
+<h2 class="ui center aligned icon header">
+  <i class="circular purple beer icon"></i>
+  Chat room
+</h2>
+
+<div class="ui two column grid">
+  <!--first column-->
+
+  <div class="twelve wide column">
+    <div class="ui  fluid raised card chatbox">
+      <div class="content" id="messages">
+        <div class="ui feed" id="message_container">
+          <%= render @messages %>
+        </div>
+      </div>
+
+      <div class="extra content">
+        <%= form_for(@message, html: { class: "ui reply form", role: "form" },  data: { controller: :form, action: "turbo:submit-end->form#clear" }, url: message_path, remote: true) do |f| %>
+          <div class="field">
+            <div class="ui fluid icon input">
+              <%= f.text_field :body, placeholder: "Enter message..." %>
+              <button type="submit" class="ui purple icon button bordered">
+                <i class="icon send"></i>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!--second column-->
+  <div class="four wide column chatbox">
+    <div class="ui vertical menu">
+      <a class="active item">
+        Users
+      </a>
+      <% @users.each do |user| %>
+        <a class="item">
+          <%= user.username %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
